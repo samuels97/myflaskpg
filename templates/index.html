@@ -1,10 +1,5 @@
-<!Doctype html>
-<html>
-  <head>
-    <title>Hello app</title>
-    <link rel="stylesheet" href="/static/style.css"/>
-  </head>
-  <body>
-    <h1>Hello {{name}}</h1>
-  </body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Hello {{ name }}.</h1>
+{% endblock content %}
