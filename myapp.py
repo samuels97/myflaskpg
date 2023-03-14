@@ -1,7 +1,8 @@
-from flask import Flask, render_template, redirect, url_for, session
+from flask import Flask, render_template, redirect, url_for, session, request
 from flask_wtf import Flaskform
 from wtforms import StringField
 from wtforms.validators import DataRequired, Email
+from werkzeug import secure_filename
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "secret string"
@@ -54,6 +55,17 @@ def index():
          "<b><a href = '/logout'>click here to log out</a></b>"
    return "You are not logged in <br><a href = '/login'></b>" + \
       "click here to log in</b></a>"
+
+@app.route('/upload')
+def upload_file():
+   return render_template('upload.html')
+	
+@app.route('/uploader', methods = ['GET', 'POST'])
+def upload_file():
+   if request.method == 'POST':
+      f = request.files['file']
+      f.save(secure_filename(f.filename))
+      return 'file uploaded successfully'
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
